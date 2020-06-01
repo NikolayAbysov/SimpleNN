@@ -19,7 +19,7 @@ public class Main {
     private static void digits() throws IOException {
         UnaryOperator<Double> sigmoid = x -> 1 / (1 + Math.exp(-x));
         UnaryOperator<Double> dsigmoid = y -> y * (1 - y);
-        NeuralNetwork nn = new NeuralNetwork(0.001, sigmoid, dsigmoid, 784, 512, 128, 32, 10);
+        NeuralNetwork nn = new NeuralNetwork(0.0001, sigmoid, dsigmoid, 1024, 784, 256, 64, 32);//Инит нейронки (784, 512, 128, 32, 10)
 
         int samples = 60000;
         BufferedImage[] images = new BufferedImage[samples];
@@ -39,11 +39,11 @@ public class Main {
             }
         }
 
-        int epochs = 1000;
+        int epochs = 10000000; //Кол-во эпох обучения
         for (int i = 1; i < epochs; i++) {
             int right = 0;
             double errorSum = 0;
-            int batchSize = 100;
+            int batchSize = 1000;//Что за батчи? Работает лучше
             for (int j = 0; j < batchSize; j++) {
                 int imgIndex = (int)(Math.random() * samples);
                 double[] targets = new double[10];
